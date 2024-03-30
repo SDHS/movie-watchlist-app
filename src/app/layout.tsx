@@ -1,11 +1,10 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import "./globals.css";
-
-const inter = Inter({ subsets: ["latin"], variable: '--font-inter' });
+import type { Metadata } from 'next';
+import './globals.css';
+import { inter } from '@/fonts';
+import Footer from '@/ui/footer';
 
 export const metadata: Metadata = {
-  title: "Movie Watchlist",
+  title: 'Movie Watchlist',
 };
 
 export default function RootLayout({
@@ -15,7 +14,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={`${inter.className} antialiased`}>
+        <div className="mb-unit-lg pl-[10dvw] pr-[10dvw]">{children}</div>
+        <Footer />
+      </body>
     </html>
   );
 }
