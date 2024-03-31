@@ -4,6 +4,8 @@ import { type SearchResponse } from '@/types/api/tmdb/search';
 import SearchInput from '@/ui/search-input';
 import Pagination from '@/ui/pagination';
 
+const MAX_PAGE_ALLOWED = 500;
+
 const options: RequestInit = {
   method: 'GET',
   headers: {
@@ -21,7 +23,7 @@ type Props = {
 
 const queryParamsSchema = z.object({
   query: z.string().catch(''),
-  page: z.coerce.number().catch(1),
+  page: z.coerce.number().lte(MAX_PAGE_ALLOWED).catch(1),
 });
 
 const mapApiToProps: (
@@ -34,7 +36,7 @@ const mapApiToProps: (
       : null,
     name: movie.original_title,
     releaseDate: new Date(movie.release_date),
-  }));
+  })) ?? [];
 
 export default async function MovieSearch({ searchParams }: Props) {
   const { page, query } = queryParamsSchema.parse(searchParams);
@@ -60,16 +62,17 @@ export default async function MovieSearch({ searchParams }: Props) {
           ? 'Popular movies'
           : `Searching for ${query}...`}
       </h1>
-      <div className="m-auto grid max-w-screen-2xl auto-rows-fr grid-cols-3 gap-5">
+      <div className="m-auto grid grid-cols-[repeat(auto-fit,_minmax(min(100%,_max(320px,_100%_/_5)),_1fr))] gap-[40px]">
         {movies.map((props, index) => (
           <MovieCard {...props} key={index} />
         ))}
       </div>
-      <Pagination
-      // initialPage={page}
-      // total={response.total_pages}
-      // defaultValue={page.toString()}
-      />
+      <div className="mt-unit-md">
+        <Pagination
+          total={Math.min(response.total_pages, MAX_PAGE_ALLOWED)}
+          initialPage={page}
+        />
+      </div>
     </main>
   );
 }
