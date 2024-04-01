@@ -1,6 +1,8 @@
 declare global {
   namespace NodeJS {
     interface ProcessEnv {
+      NEXTAUTH_URL: string;
+      SECRET: string;
       GITHUB_ID: string;
       GITHUB_SECRET: string;
       TMDB_API_KEY: string;

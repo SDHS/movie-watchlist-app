@@ -54,7 +54,7 @@ export default async function MovieSearch({ searchParams }: Props) {
 
   return (
     <main>
-      <div className="sticky left-0 top-[10px] z-50 m-auto mb-unit-xl w-3/4">
+      <div className="m-auto mb-unit-xl w-3/4">
         <SearchInput />
       </div>
       <h1 className="mb-unit-xl text-3xl">
