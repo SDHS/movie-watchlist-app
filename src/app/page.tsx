@@ -1,18 +1,12 @@
-import MovieCard, { type Props as MovieCardProps } from '@/ui/movie-card';
+import MovieCard from '@/ui/movie-card';
 import { z } from 'zod';
-import { type SearchResponse } from '@/types/api/tmdb/search';
+import { type FetchListResponse } from '@/types/api/tmdb/fetch-list';
 import SearchInput from '@/ui/search-input';
 import Pagination from '@/ui/pagination';
+import { fetchPopularMovies, searchMovies } from '@/api/tmdb/api';
+import { IMAGES_BASE_URL } from '@/constants/tmdb';
 
 const MAX_PAGE_ALLOWED = 500;
-
-const options: RequestInit = {
-  method: 'GET',
-  headers: {
-    accept: 'application/json',
-    Authorization: `Bearer ${process.env.TMDB_API_KEY}`,
-  },
-};
 
 type Props = {
   searchParams: {
@@ -26,13 +20,12 @@ const queryParamsSchema = z.object({
   page: z.coerce.number().lte(MAX_PAGE_ALLOWED).catch(1),
 });
 
-const mapApiToProps: (
-  results: SearchResponse['results'],
-) => MovieCardProps[] = (results: SearchResponse['results']) =>
+const mapApiToProps = (results: FetchListResponse['results']) =>
   results.map(movie => ({
+    id: movie.id,
     href: `/${movie.id}`,
     imageSrc: movie.poster_path
-      ? `https://image.tmdb.org/t/p/original${movie.poster_path}`
+      ? `${IMAGES_BASE_URL}${movie.poster_path}`
       : null,
     name: movie.original_title,
     releaseDate: new Date(movie.release_date),
@@ -41,14 +34,16 @@ const mapApiToProps: (
 export default async function MovieSearch({ searchParams }: Props) {
   const { page, query } = queryParamsSchema.parse(searchParams);
   const shouldDisplayPopularMovies = Boolean(!query.length);
-  const response: SearchResponse = await fetch(
-    shouldDisplayPopularMovies
-      ? `https://api.themoviedb.org/3/movie/popular?page=${page}`
-      : `https://api.themoviedb.org/3/search/movie?include_adult=false&language=en-US&query=${query}&page=${page}`,
-    options,
-  )
-    .then(res => res.json())
-    .then(json => json);
+  const response: FetchListResponse = (shouldDisplayPopularMovies
+    ? await fetchPopularMovies({
+        page: String(page),
+      })
+    : await searchMovies({ query, page: String(page) })) ?? {
+    results: [],
+    total_pages: 0,
+    page: 0,
+    total_results: 0,
+  };
 
   const movies = mapApiToProps(response.results);
 
@@ -63,13 +58,19 @@ export default async function MovieSearch({ searchParams }: Props) {
           : `Searching for ${query}...`}
       </h1>
       <div className="m-auto grid grid-cols-[repeat(auto-fit,_minmax(min(100%,_max(320px,_100%_/_5)),_1fr))] gap-[40px]">
-        {movies.map((props, index) => (
-          <MovieCard {...props} key={index} />
+        {movies.map(({ href, id, imageSrc, name, releaseDate }) => (
+          <MovieCard
+            href={href}
+            imageSrc={imageSrc}
+            name={name}
+            releaseDate={releaseDate}
+            key={id}
+          />
         ))}
       </div>
       <div className="mt-unit-md">
         <Pagination
-          total={Math.min(response.total_pages, MAX_PAGE_ALLOWED)}
+          total={Math.min(response?.total_pages, MAX_PAGE_ALLOWED)}
           initialPage={page}
         />
       </div>

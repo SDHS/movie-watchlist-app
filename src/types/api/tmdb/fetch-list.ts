@@ -15,7 +15,7 @@ export type Movie = {
     vote_count: number;
 };
 
-export type SearchResponse = {
+export type FetchListResponse = {
     page: number;
     results: Movie[];
     total_pages: number;

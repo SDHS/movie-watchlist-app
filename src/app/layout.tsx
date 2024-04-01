@@ -15,10 +15,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} antialiased`}>
+      <body
+        className={`${inter.className} flex min-h-[100vh] flex-col antialiased`}
+      >
         <Header />
-        <div className="mb-unit-lg pl-[10dvw] pr-[10dvw]">{children}</div>
-        <Footer />
+        <main className="mb-unit-lg pl-[10dvw] pr-[10dvw]">{children}</main>
+        <div className="mt-auto">
+          <Footer />
+        </div>
       </body>
     </html>
   );
