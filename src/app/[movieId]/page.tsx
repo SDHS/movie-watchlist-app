@@ -1,16 +1,14 @@
 import { fetchMovieDetail } from '@/api/tmdb/api';
-import { IMAGES_BASE_URL } from '@/constants/tmdb';
 
-import { Button } from '@nextui-org/button';
 import { Image } from '@nextui-org/image';
-import { Plus } from 'lucide-react';
 
 import { CircularProgress } from '@nextui-org/progress';
 import { Card } from '@nextui-org/card';
 import { Avatar } from '@nextui-org/react';
-
-const getImage = (path: string | null | undefined) =>
-  path ? `${IMAGES_BASE_URL}${path}` : './image_not_found.jpg';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '../api/auth/[...nextauth]/route';
+import AddToWatchlistButton from './add-to-watchlist-button';
+import { getImage } from '@/utils/tmdb';
 
 export default async function MovieDetail({
   params,
@@ -19,17 +17,27 @@ export default async function MovieDetail({
     movieId: string;
   };
 }) {
-  const movie = await fetchMovieDetail(+params.movieId);
+  const [movie, session] = await Promise.all([
+    fetchMovieDetail(+params.movieId),
+    getServerSession(authOptions),
+  ]);
 
   if (!movie) {
     return <div>An error occurred, please refresh and try again</div>;
   }
-
   return (
     <main>
       <div className="flex items-center justify-between">
         <h1 className="text-4xl font-bold">{movie.title}</h1>
-        <Button startContent={<Plus />}>Add to watchlist</Button>
+        <AddToWatchlistButton
+          watchlistBody={{
+            posterPath: movie.poster_path,
+            title: movie.title,
+            tmdbId: movie.id,
+            releaseDate: movie.release_date ?? undefined,
+            userId: session?.user.id,
+          }}
+        />
       </div>
       <div className="mt-unit-xl flex w-full flex-col gap-unit-lg md:flex-row">
         <Image

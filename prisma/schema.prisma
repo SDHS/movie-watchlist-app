@@ -7,14 +7,17 @@ datasource db {
   url      = "file:./dev.db"
 }
 
-model Movie {
-  id          Int     @id @default(autoincrement())
+model Watchlist {
+  id          Int      @id @default(autoincrement())
+  movieId     Int
   title       String
+  userId      Int
   posterPath  String
-  tmdbId      Int
-  releaseDate String?
-  User        User?   @relation(fields: [userId], references: [id])
-  userId      Int?
+  releaseYear String?
+  user        User     @relation(fields: [userId], references: [id])
+  createdAt   DateTime @default(now())
+
+  @@unique([userId, movieId])
 }
 
 model Account {
@@ -50,14 +53,14 @@ model Session {
 }
 
 model User {
-  id            Int       @id @default(autoincrement())
+  id            Int         @id @default(autoincrement())
   name          String?
-  email         String?   @unique
-  emailVerified DateTime? @map("email_verified")
+  email         String?     @unique
+  emailVerified DateTime?   @map("email_verified")
   image         String?
-  createdAt     DateTime  @default(now()) @map(name: "created_at")
-  updatedAt     DateTime  @updatedAt @map(name: "updated_at")
-  watchlist     Movie[]
+  createdAt     DateTime    @default(now()) @map(name: "created_at")
+  updatedAt     DateTime    @updatedAt @map(name: "updated_at")
+  watchlist     Watchlist[]
   accounts      Account[]
   sessions      Session[]
 
