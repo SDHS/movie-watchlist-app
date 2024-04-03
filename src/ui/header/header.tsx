@@ -11,9 +11,9 @@ import {
 } from '@nextui-org/navbar';
 import { getServerSession } from 'next-auth/next';
 
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
-
 import SignInOutButton from '@/ui/sign-in-out-button';
+
+import { authOptions } from '@/utils/authOptions';
 
 export default async function Header() {
   const session = await getServerSession(authOptions);

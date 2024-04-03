@@ -3,12 +3,11 @@ import { CircularProgress } from '@nextui-org/progress';
 import { Tooltip } from '@nextui-org/tooltip';
 import { getServerSession } from 'next-auth';
 
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
-
 import CastCard from '@/ui/cast-card';
 
 import { fetchMovieDetail } from '@/api/tmdb/api-server';
 
+import { authOptions } from '@/utils/authOptions';
 import { getImage } from '@/utils/tmdb';
 
 import AddToWatchlistButton from './add-to-watchlist-button';
@@ -41,7 +40,7 @@ export default async function MovieDetail({
         title: movie.title,
         tmdbId: movie.id,
         releaseDate: movie.release_date ?? undefined,
-        userId: session?.user.id,
+        userId: session?.user.id ?? -1,
       }}
     />
   );

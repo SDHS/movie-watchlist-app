@@ -19,7 +19,7 @@ export default async function Watchlist() {
             href={`/${movie.movieId}`}
             posterPath={movie.posterPath}
             name={movie.title}
-            releaseDate={new Date(movie.releaseYear)}
+            releaseDate={new Date(String(movie.releaseYear))}
             key={movie.id}
           />
         ))}

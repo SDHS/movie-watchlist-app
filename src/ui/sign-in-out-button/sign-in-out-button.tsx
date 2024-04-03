@@ -1,6 +1,6 @@
 'use client';
 
-import { Github } from 'lucide-react';
+import { LogIn } from 'lucide-react';
 import { signOut } from 'next-auth/react';
 
 import { useRouter } from 'next/navigation';
@@ -17,7 +17,7 @@ export default function SignInOutButton({
     <Button onClick={() => signOut()}>Sign out</Button>
   ) : (
     <Button
-      startContent={<Github />}
+      startContent={<LogIn />}
       onClick={() => router.push('/api/auth/signin')}
     >
       Sign in

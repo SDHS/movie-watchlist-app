@@ -36,7 +36,5 @@ yarn-error.log*
 next-env.d.ts
 
 #Sqlite
-
 *.db
 *.db-journal
-migrations
