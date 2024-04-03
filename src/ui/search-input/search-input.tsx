@@ -5,6 +5,7 @@ import { usePathname, useSearchParams, useRouter } from 'next/navigation';
 import { Props } from './types';
 import { useDebouncedCallback } from 'use-debounce';
 import { SearchIcon } from 'lucide-react';
+import { DEBOUNCE_DURATION_MS } from '@/constants/debounce';
 
 export default function SearchInput({
   queryKey = 'query',
@@ -24,7 +25,7 @@ export default function SearchInput({
     }
 
     router.replace(`${pathname}?${params.toString()}`);
-  }, 500);
+  }, DEBOUNCE_DURATION_MS);
 
   return (
     <Input
@@ -34,7 +35,7 @@ export default function SearchInput({
       onClear={() => handleSearch('')}
       startContent={<SearchIcon />}
       variant="bordered"
-      className="rounded-large bg-white"
+      className="rounded-large bg-default-50"
     />
   );
 }

@@ -1,6 +1,7 @@
 import { BASE_URL } from '@/constants/tmdb';
 import { FetchListResponse } from '@/types/api/tmdb/fetch-list';
 import { MovieDetail } from '@/types/api/tmdb/fetch-movie-detail';
+import { handleError } from '@/utils/error';
 
 const COMMON_QUERY_PARAMS = {
   api_key: process.env.TMDB_API_KEY,
@@ -28,7 +29,7 @@ export const searchMovies = async (params: { query: string; page: string }) => {
     }
     return json;
   } catch (error) {
-    console.error('An error occurred');
+    handleError(error);
   }
 };
 
@@ -52,7 +53,7 @@ export const fetchPopularMovies = async (params: { page: string }) => {
     }
     return json;
   } catch (error) {
-    console.error('An error occurred');
+    handleError(error);
   }
 };
 
@@ -76,6 +77,6 @@ export const fetchMovieDetail = async (id: number) => {
     }
     return json;
   } catch (error) {
-    console.error('An error occurred');
+    handleError(error);
   }
 };

@@ -6,7 +6,6 @@ import type { CreateWatchlistRequestBody } from '@/types/api/watchlist/fetch-wat
 
 export async function GET() {
   const session = await getServerSession(authOptions);
-  console.log('sessiosisosisoisosisoisos', session);
   if (!session) {
     return Response.json(
       {
@@ -59,7 +58,7 @@ export async function POST(request: NextRequest) {
 
   if (movieAlreadyExists) {
     return Response.json(
-      { data: { message: 'Movie is already present in the watchlist' } },
+      { error: { message: 'Movie is already present in the watchlist' } },
       { status: 409 },
     );
   }

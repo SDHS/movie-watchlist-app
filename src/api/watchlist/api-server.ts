@@ -1,5 +1,6 @@
 import { BASE_URL } from '@/constants/watchlist';
 import type { FetchWatchlistResponse } from '@/types/api/watchlist/fetch-watchlist';
+import { handleError } from '@/utils/error';
 import { headers } from 'next/headers';
 
 export const fetchWatchlist = async () => {
@@ -14,6 +15,6 @@ export const fetchWatchlist = async () => {
     }
     return json;
   } catch (error) {
-    console.error('An error occurred');
+    handleError(error);
   }
 };
