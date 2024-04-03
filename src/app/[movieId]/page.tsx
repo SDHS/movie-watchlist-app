@@ -10,6 +10,7 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '../api/auth/[...nextauth]/route';
 import AddToWatchlistButton from './add-to-watchlist-button';
 import { getImage } from '@/utils/tmdb';
+import CastCard from '@/ui/cast-card';
 
 export default async function MovieDetail({
   params,
@@ -93,15 +94,13 @@ export default async function MovieDetail({
       </div>
       <h2 className="mt-unit-lg text-xl font-bold">Cast:</h2>
       <div className="flex w-full max-w-[100%] items-center gap-unit-md overflow-scroll p-unit-md">
-        {movie.credits.cast.map(member => (
-          <Card
-            key={member.id}
-            className="flex min-w-fit items-center p-unit-md"
-          >
-            <Avatar src={getImage(member.profile_path)} size="lg" />
-            <p className="font-bold">{member.name}</p>
-            <p>{member.character}</p>
-          </Card>
+        {movie.credits.cast.map(({ id, name, profile_path, character }) => (
+          <CastCard
+            key={id}
+            name={name}
+            profilePath={profile_path}
+            character={character}
+          />
         ))}
       </div>
     </main>
