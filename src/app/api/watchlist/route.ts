@@ -2,10 +2,11 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '../auth/[...nextauth]/route';
 import prisma from '@/lib/prisma';
 import { NextRequest } from 'next/server';
-import { CreateWatchlistRequestBody } from '@/types/api/watchlist/fetch-watchlist';
+import type { CreateWatchlistRequestBody } from '@/types/api/watchlist/fetch-watchlist';
 
 export async function GET() {
   const session = await getServerSession(authOptions);
+  console.log('sessiosisosisoisosisoisos', session);
   if (!session) {
     return Response.json(
       {
@@ -45,7 +46,7 @@ export async function POST(request: NextRequest) {
 
   const {
     data: { tmdbId, userId, posterPath, title, releaseDate },
-  }: { data: CreateWatchlistRequestBody } = await request.json();
+  }: { data: CreateWatchlistRequestBody['data'] } = await request.json();
 
   const movieAlreadyExists = await prisma.watchlist.findUnique({
     where: {

@@ -6,8 +6,7 @@ import Pagination from '@/ui/pagination';
 import { fetchPopularMovies, searchMovies } from '@/api/tmdb/api';
 import MovieGrid from '@/ui/movie-grid';
 import { getImage } from '@/utils/tmdb';
-
-const MAX_PAGE_ALLOWED = 500;
+import { MAX_PAGE_ALLOWED } from '@/constants/tmdb';
 
 type Props = {
   searchParams: {
@@ -56,7 +55,7 @@ export default async function MovieSearch({ searchParams }: Props) {
           ? 'Popular movies'
           : `Searching for ${query}...`}
       </h1>
-      <MovieGrid>
+      <div className="m-auto grid grid-cols-[repeat(auto-fit,_minmax(min(100%,_max(320px,_100%_/_5)),_1fr))] gap-unit-lg">
         {movies.map(({ href, id, imageSrc, name, releaseDate }) => (
           <MovieCard
             href={href}
@@ -66,7 +65,7 @@ export default async function MovieSearch({ searchParams }: Props) {
             key={id}
           />
         ))}
-      </MovieGrid>
+      </div>
       <div className="mt-unit-md">
         <Pagination
           total={Math.min(response?.total_pages, MAX_PAGE_ALLOWED)}

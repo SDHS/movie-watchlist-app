@@ -29,7 +29,7 @@ export default async function Header() {
       <NavbarContent className="ml-auto max-w-fit">
         {session !== null ? (
           <NavbarItem>
-            <Link href="/my-watchlist" isBlock>
+            <Link href="/watchlist" isBlock>
               My watchlist
             </Link>
           </NavbarItem>

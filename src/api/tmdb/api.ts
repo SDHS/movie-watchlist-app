@@ -23,6 +23,9 @@ export const searchMovies = async (params: { query: string; page: string }) => {
       },
     );
     const json: FetchListResponse = await response.json();
+    if (!response.ok) {
+      throw json;
+    }
     return json;
   } catch (error) {
     console.error('An error occurred');
@@ -44,6 +47,9 @@ export const fetchPopularMovies = async (params: { page: string }) => {
       },
     );
     const json: FetchListResponse = await response.json();
+    if (!response.ok) {
+      throw json;
+    }
     return json;
   } catch (error) {
     console.error('An error occurred');
@@ -65,6 +71,9 @@ export const fetchMovieDetail = async (id: number) => {
       },
     );
     const json: MovieDetail = await response.json();
+    if (!response.ok) {
+      throw json;
+    }
     return json;
   } catch (error) {
     console.error('An error occurred');

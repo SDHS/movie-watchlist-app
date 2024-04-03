@@ -11,13 +11,13 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   adapter: PrismaAdapter(prisma),
-  secret: process.env.SECRET,
+  secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
     session: ({ session, token }) => ({
       ...session,
       user: {
         ...session.user,
-        ...(token.sub && { id: +token.sub }),
+        id: +token.sub,
       },
     }),
     jwt: async ({ user, token }) => {
