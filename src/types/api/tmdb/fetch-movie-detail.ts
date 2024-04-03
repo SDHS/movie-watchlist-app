@@ -28,7 +28,6 @@ export type MovieDetail = CustomProperties & {
   video: boolean;
   vote_average: number;
   vote_count: number;
-  credits: Credits;
 };
 
 export type Genre = {
@@ -52,38 +51,4 @@ export type SpokenLanguage = {
   english_name: string;
   iso_639_1: string;
   name: string;
-};
-
-export type Credits = {
-  cast: Cast[];
-  crew: Crew[];
-};
-
-export type Cast = {
-  adult: boolean;
-  gender: number;
-  id: number;
-  known_for_department: string;
-  name: string;
-  original_name: string;
-  popularity: number;
-  profile_path?: string;
-  cast_id: number;
-  character: string;
-  credit_id: string;
-  order: number;
-};
-
-export type Crew = {
-  adult: boolean;
-  gender: number;
-  id: number;
-  known_for_department: string;
-  name: string;
-  original_name: string;
-  popularity: number;
-  profile_path?: string;
-  credit_id: string;
-  department: string;
-  job: string;
 };

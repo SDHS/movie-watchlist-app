@@ -15,7 +15,6 @@ export const fetchMovieDetail = async (id: number) => {
   const session = await getServerSession(authOptions);
   const queryParams = new URLSearchParams({
     ...COMMON_QUERY_PARAMS,
-    append_to_response: 'credits',
   });
   const stringifiedParams = queryParams.toString();
 

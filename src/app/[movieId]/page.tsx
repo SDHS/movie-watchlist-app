@@ -3,7 +3,6 @@ import { CircularProgress } from '@nextui-org/progress';
 import { Tooltip } from '@nextui-org/tooltip';
 import { getServerSession } from 'next-auth';
 
-import CastCard from '@/ui/cast-card';
 import ErrorCard from '@/ui/error-card';
 
 import { fetchMovieDetail } from '@/api/tmdb/api-server';
@@ -12,6 +11,7 @@ import { authOptions } from '@/utils/authOptions';
 import { getImage } from '@/utils/tmdb';
 
 import AddToWatchlistButton from './add-to-watchlist-button';
+import MovieCast from './movie-cast';
 import MovieDetailItem, {
   Props as MovieDetailItemProps,
 } from './movie-detail-item';
@@ -49,19 +49,21 @@ export default async function MovieDetail({
   const movieDetails: MovieDetailItemProps[] = [
     {
       heading: 'Release date:',
-      content: movie.release_date ?? 'Release date unavailable',
+      content: movie?.release_date ?? 'Unavailable',
     },
     {
       heading: 'Runtime:',
-      content: `${movie.runtime} minutes`,
+      content: movie?.runtime ? `${movie.runtime} minutes` : 'Unavailable',
     },
     {
       heading: 'Genre:',
-      content: movie.genres.map(genre => genre.name).join(', '),
+      content: Array.isArray(movie?.genres)
+        ? movie.genres.map(genre => genre.name).join(', ')
+        : 'Unavailable',
     },
     {
       heading: 'Plot summary:',
-      content: movie.overview,
+      content: movie?.overview ?? 'Unavailable',
     },
     {
       heading: 'User ratings:',
@@ -69,11 +71,15 @@ export default async function MovieDetail({
         <div className="flex items-center gap-unit-sm">
           <CircularProgress
             size="lg"
-            value={(movie.vote_average / 10) * 100}
+            value={((movie?.vote_average ?? 0) / 10) * 100}
             color="primary"
             showValueLabel
           />
-          <p className="text-small">Based on {movie.vote_count} votes</p>
+          {movie?.vote_count ? (
+            <p className="text-small">Based on {movie.vote_count} votes</p>
+          ) : (
+            'Unavailable'
+          )}
         </div>
       ),
     },
@@ -94,7 +100,7 @@ export default async function MovieDetail({
       <div className="mt-unit-xl flex w-full flex-col gap-unit-lg md:flex-row">
         <Image
           src={getImage(movie.poster_path)}
-          alt={`${movie.title} poster`}
+          alt={`${movie?.title ?? ''} poster`}
           className="w-full object-cover md:w-[50%] md:min-w-[300px]"
         />
         <div className="flex flex-col gap-unit-lg">
@@ -104,16 +110,7 @@ export default async function MovieDetail({
         </div>
       </div>
       <h2 className="mt-unit-lg text-xl font-bold">Cast:</h2>
-      <div className="flex max-w-[100%] items-center gap-unit-md overflow-scroll p-unit-md">
-        {movie.credits.cast.map(({ id, name, profile_path, character }) => (
-          <CastCard
-            key={id}
-            name={name}
-            profilePath={profile_path}
-            character={character}
-          />
-        ))}
-      </div>
+      <MovieCast movieId={+params.movieId} />
     </main>
   );
 }

@@ -30,6 +30,7 @@ export default function AddToWatchlistButton({
 
   return (
     <Button
+      className="min-w-fit"
       color={inWatchlist ? 'danger' : 'primary'}
       isLoading={isUpdating}
       onClick={async () => {

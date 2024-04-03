@@ -1,5 +1,6 @@
 import { BASE_URL } from '@/constants/tmdb';
 
+import { FetchCreditsResponse } from '@/types/api/tmdb/fetch-credits';
 import { FetchListResponse } from '@/types/api/tmdb/fetch-list';
 
 import { COMMON_QUERY_PARAMS } from './constants';
@@ -43,6 +44,25 @@ export const fetchPopularMovies = async (params: { page: string }) => {
       },
     );
     const json: FetchListResponse = await response.json();
+    if (!response.ok) {
+      return undefined;
+    }
+    return json;
+  } catch (error) {}
+};
+
+export const fetchMovieCast = async (movieId: number) => {
+  const queryParams = new URLSearchParams(COMMON_QUERY_PARAMS);
+  const stringifiedParams = queryParams.toString();
+
+  try {
+    const response: Response = await fetch(
+      `${BASE_URL}/movie/${movieId}/credits?${stringifiedParams}`,
+      {
+        method: 'GET',
+      },
+    );
+    const json: FetchCreditsResponse = await response.json();
     if (!response.ok) {
       return undefined;
     }
