@@ -84,7 +84,7 @@ Storing credentials within our own database is avoided as NextAuth [discourages]
 Apart from the authentication models provided by Prisma, we have a `WatchList` model that relates a `User` model with a `Movie` model.
 
 # Server Components vs Client Components
-Server components are preferred whereever possible, and client components are reserved only for components requiring interactivity, like `<SearchBox />` and `<Button />`.
+Server components are preferred whereever possible, and client components are reserved only for components requiring interactivity, like `<SearchInput />` and `<Button />`.
 
 # Route Handlers
 API Route Handlers are defined in `/app/api/*` for interaction with our SQLite database. TMDB's endpoints are called directly from within server components instead of hitting the `/api/*` routes to explore both patterns.
