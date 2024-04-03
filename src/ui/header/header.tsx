@@ -2,7 +2,7 @@ import { FilmIcon } from 'lucide-react';
 
 import NextLink from 'next/link';
 
-import { Link } from '@nextui-org/link';
+import { Avatar } from '@nextui-org/avatar';
 import {
   Navbar,
   NavbarBrand,
@@ -31,13 +31,21 @@ export default async function Header() {
       <NavbarContent className="ml-auto max-w-fit">
         {session !== null ? (
           <NavbarItem>
-            <Link href="/watchlist" isBlock>
+            <NextLink href="/watchlist" className="text-primary">
               My watchlist
-            </Link>
+            </NextLink>
           </NavbarItem>
         ) : null}
         <NavbarItem>
           <SignInOutButton isSignedIn={session !== null} />
+        </NavbarItem>
+        <NavbarItem>
+          {session !== null ? (
+            <Avatar
+              size="md"
+              src={session?.user.image ?? './image_not_found.jpg'}
+            />
+          ) : null}
         </NavbarItem>
       </NavbarContent>
     </Navbar>

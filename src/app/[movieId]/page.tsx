@@ -4,6 +4,7 @@ import { Tooltip } from '@nextui-org/tooltip';
 import { getServerSession } from 'next-auth';
 
 import CastCard from '@/ui/cast-card';
+import ErrorCard from '@/ui/error-card';
 
 import { fetchMovieDetail } from '@/api/tmdb/api-server';
 
@@ -28,7 +29,7 @@ export default async function MovieDetail({
   ]);
 
   if (!movie) {
-    return <div>An error occurred, please refresh and try again</div>;
+    return <ErrorCard />;
   }
 
   const addToWatchlistButtonJsx = (

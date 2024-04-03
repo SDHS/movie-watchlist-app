@@ -1,7 +1,6 @@
 import { getServerSession } from 'next-auth';
 
 import { authOptions } from '@/utils/authOptions';
-import { handleError } from '@/utils/error';
 import { getMovieDetailTag } from '@/utils/tmdb';
 
 import prisma from '@/lib/prisma';
@@ -30,7 +29,7 @@ export const fetchMovieDetail = async (id: number) => {
     );
     const json: MovieDetail = await response.json();
     if (!response.ok) {
-      throw json;
+      return undefined;
     }
 
     let isMovieInWatchlist = false;
@@ -47,7 +46,5 @@ export const fetchMovieDetail = async (id: number) => {
       );
     }
     return { ...json, in_watchlist: isMovieInWatchlist };
-  } catch (error) {
-    handleError(error);
-  }
+  } catch (error) {}
 };

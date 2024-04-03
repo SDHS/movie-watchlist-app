@@ -1,5 +1,3 @@
-import { handleError } from '@/utils/error';
-
 import { BASE_URL } from '@/constants/tmdb';
 
 import { FetchListResponse } from '@/types/api/tmdb/fetch-list';
@@ -24,12 +22,10 @@ export const searchMovies = async (params: { query: string; page: string }) => {
     );
     const json: FetchListResponse = await response.json();
     if (!response.ok) {
-      throw json;
+      return undefined;
     }
     return json;
-  } catch (error) {
-    handleError(error);
-  }
+  } catch (error) {}
 };
 
 export const fetchPopularMovies = async (params: { page: string }) => {
@@ -48,10 +44,8 @@ export const fetchPopularMovies = async (params: { page: string }) => {
     );
     const json: FetchListResponse = await response.json();
     if (!response.ok) {
-      throw json;
+      return undefined;
     }
     return json;
-  } catch (error) {
-    handleError(error);
-  }
+  } catch (error) {}
 };

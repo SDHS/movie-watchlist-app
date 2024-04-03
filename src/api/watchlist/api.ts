@@ -1,5 +1,3 @@
-import { handleError } from '@/utils/error';
-
 import type { CreateWatchlistRequestBody } from '@/types/api/watchlist/fetch-watchlist';
 
 export const addMovieToWatchlist = async (
@@ -12,12 +10,10 @@ export const addMovieToWatchlist = async (
     });
     const json = await response.json();
     if (!response.ok) {
-      throw json;
+      return undefined;
     }
     return json;
-  } catch (error) {
-    handleError(error);
-  }
+  } catch (error) {}
 };
 
 export const removeMovieFromWatchlist = async (movieId: number) => {
@@ -28,10 +24,8 @@ export const removeMovieFromWatchlist = async (movieId: number) => {
     });
     const json = await response.json();
     if (!response.ok) {
-      throw json;
+      return undefined;
     }
     return json;
-  } catch (error) {
-    handleError(error);
-  }
+  } catch (error) {}
 };

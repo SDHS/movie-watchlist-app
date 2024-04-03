@@ -7,11 +7,9 @@ import { useRouter } from 'next/navigation';
 
 import { Button } from '@nextui-org/button';
 
-export default function SignInOutButton({
-  isSignedIn,
-}: {
-  isSignedIn: boolean;
-}) {
+import type { Props } from './types';
+
+export default function SignInOutButton({ isSignedIn }: Props) {
   const router = useRouter();
   return isSignedIn ? (
     <Button onClick={() => signOut()}>Sign out</Button>
