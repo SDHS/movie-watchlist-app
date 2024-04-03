@@ -1,7 +1,10 @@
-import { BASE_URL } from '@/constants/watchlist';
-import type { FetchWatchlistResponse } from '@/types/api/watchlist/fetch-watchlist';
-import { handleError } from '@/utils/error';
 import { headers } from 'next/headers';
+
+import { handleError } from '@/utils/error';
+
+import { BASE_URL } from '@/constants/watchlist';
+
+import type { FetchWatchlistResponse } from '@/types/api/watchlist/fetch-watchlist';
 
 export const fetchWatchlist = async () => {
   try {

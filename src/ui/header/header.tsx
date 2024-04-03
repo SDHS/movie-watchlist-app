@@ -1,17 +1,19 @@
+import { FilmIcon } from 'lucide-react';
+
+import NextLink from 'next/link';
+
+import { Link } from '@nextui-org/link';
 import {
   Navbar,
   NavbarBrand,
   NavbarContent,
   NavbarItem,
 } from '@nextui-org/navbar';
-import { Link } from '@nextui-org/link';
-
 import { getServerSession } from 'next-auth/next';
+
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 
-import { FilmIcon } from 'lucide-react';
-import NextLink from 'next/link';
-import SignInOutButton from '../sign-in-out-button';
+import SignInOutButton from '@/ui/sign-in-out-button';
 
 export default async function Header() {
   const session = await getServerSession(authOptions);

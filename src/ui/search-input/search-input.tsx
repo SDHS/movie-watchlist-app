@@ -1,11 +1,15 @@
 'use client';
 
-import { Input } from '@nextui-org/input';
-import { usePathname, useSearchParams, useRouter } from 'next/navigation';
-import { Props } from './types';
-import { useDebouncedCallback } from 'use-debounce';
 import { SearchIcon } from 'lucide-react';
+
+import { usePathname, useSearchParams, useRouter } from 'next/navigation';
+
+import { Input } from '@nextui-org/input';
+import { useDebouncedCallback } from 'use-debounce';
+
 import { DEBOUNCE_DURATION_MS } from '@/constants/debounce';
+
+import { Props } from './types';
 
 export default function SearchInput({
   queryKey = 'query',

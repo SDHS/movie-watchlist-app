@@ -1,14 +1,17 @@
-import { fetchMovieDetail } from '@/api/tmdb/api-server';
-
 import { Image } from '@nextui-org/image';
-
 import { CircularProgress } from '@nextui-org/progress';
 import { Tooltip } from '@nextui-org/tooltip';
 import { getServerSession } from 'next-auth';
-import { authOptions } from '../api/auth/[...nextauth]/route';
-import AddToWatchlistButton from './add-to-watchlist-button';
-import { getImage } from '@/utils/tmdb';
+
+import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+
 import CastCard from '@/ui/cast-card';
+
+import { fetchMovieDetail } from '@/api/tmdb/api-server';
+
+import { getImage } from '@/utils/tmdb';
+
+import AddToWatchlistButton from './add-to-watchlist-button';
 import MovieDetailItem, {
   Props as MovieDetailItemProps,
 } from './movie-detail-item';

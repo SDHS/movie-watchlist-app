@@ -1,9 +1,12 @@
-import type { Metadata } from 'next';
-import './globals.css';
+import { Toaster } from 'react-hot-toast';
+
 import { inter } from '@/fonts';
+import type { Metadata } from 'next';
+
 import Footer from '@/ui/footer';
 import Header from '@/ui/header';
-import { Toaster } from 'react-hot-toast';
+
+import './globals.css';
 
 export const metadata: Metadata = {
   title: 'Movie Watchlist',

@@ -1,9 +1,11 @@
+import NextImage from 'next/image';
+import Link from 'next/link';
+
 import { Card, CardFooter } from '@nextui-org/card';
 import { Image } from '@nextui-org/image';
-import NextImage from 'next/image';
-import { Props } from './types';
-import Link from 'next/link';
 import { isValid } from 'date-fns/isValid';
+
+import type { Props } from './types';
 
 const DEFAULT_IMAGE = '/image_not_found.jpg';
 

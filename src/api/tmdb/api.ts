@@ -1,6 +1,8 @@
-import { BASE_URL } from '@/constants/tmdb';
-import { FetchListResponse } from '@/types/api/tmdb/fetch-list';
 import { handleError } from '@/utils/error';
+
+import { BASE_URL } from '@/constants/tmdb';
+
+import { FetchListResponse } from '@/types/api/tmdb/fetch-list';
 
 import { COMMON_QUERY_PARAMS } from './constants';
 

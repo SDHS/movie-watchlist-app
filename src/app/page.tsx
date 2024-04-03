@@ -1,12 +1,17 @@
-import MovieCard from '@/ui/movie-card';
 import { z } from 'zod';
-import { type FetchListResponse } from '@/types/api/tmdb/fetch-list';
-import SearchInput from '@/ui/search-input';
-import Pagination from '@/ui/pagination';
-import { fetchPopularMovies, searchMovies } from '@/api/tmdb/api';
+
+import MovieCard from '@/ui/movie-card';
 import MovieGrid from '@/ui/movie-grid';
+import Pagination from '@/ui/pagination';
+import SearchInput from '@/ui/search-input';
+
+import { fetchPopularMovies, searchMovies } from '@/api/tmdb/api';
+
 import { getImage } from '@/utils/tmdb';
+
 import { MAX_PAGE_ALLOWED } from '@/constants/tmdb';
+
+import { type FetchListResponse } from '@/types/api/tmdb/fetch-list';
 
 type Props = {
   searchParams: {

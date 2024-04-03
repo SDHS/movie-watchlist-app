@@ -1,5 +1,6 @@
-import type { CreateWatchlistRequestBody } from '@/types/api/watchlist/fetch-watchlist';
 import { handleError } from '@/utils/error';
+
+import type { CreateWatchlistRequestBody } from '@/types/api/watchlist/fetch-watchlist';
 
 export const addMovieToWatchlist = async (
   body: CreateWatchlistRequestBody['data'],

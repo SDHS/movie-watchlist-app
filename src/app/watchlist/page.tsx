@@ -1,6 +1,8 @@
-import { fetchWatchlist } from '@/api/watchlist/api-server';
 import MovieCard from '@/ui/movie-card';
 import MovieGrid from '@/ui/movie-grid';
+
+import { fetchWatchlist } from '@/api/watchlist/api-server';
+
 import { getImage } from '@/utils/tmdb';
 
 export default async function Watchlist() {

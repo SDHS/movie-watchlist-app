@@ -1,15 +1,20 @@
 'use client';
 
+import { useState } from 'react';
+import toast from 'react-hot-toast';
+
+import { Button, ButtonProps } from '@nextui-org/button';
+
 import {
   addMovieToWatchlist,
   removeMovieFromWatchlist,
 } from '@/api/watchlist/api';
-import { CreateWatchlistRequestBody } from '@/types/api/watchlist/fetch-watchlist';
-import { Button, ButtonProps } from '@nextui-org/button';
-import { useState } from 'react';
-import toast from 'react-hot-toast';
-import { customRevalidateTag } from './revalidate-tag';
+
 import { getMovieDetailTag } from '@/utils/tmdb';
+
+import { CreateWatchlistRequestBody } from '@/types/api/watchlist/fetch-watchlist';
+
+import { customRevalidateTag } from './revalidate-tag';
 
 type Props = ButtonProps & {
   watchlistBody: CreateWatchlistRequestBody['data'];

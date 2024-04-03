@@ -1,5 +1,6 @@
-import { isCustomError } from '@/types/api/error/error';
 import toast from 'react-hot-toast';
+
+import { isCustomError } from '@/types/api/error/error';
 
 export const handleError = (error: unknown) => {
   if (isCustomError(error)) {

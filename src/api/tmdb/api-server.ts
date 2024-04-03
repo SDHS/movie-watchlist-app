@@ -1,11 +1,17 @@
-import { BASE_URL } from '@/constants/tmdb';
-import { COMMON_QUERY_PARAMS } from './constants';
-import { MovieDetail } from '@/types/api/tmdb/fetch-movie-detail';
-import { handleError } from '@/utils/error';
-import prisma from '@/lib/prisma';
 import { getServerSession } from 'next-auth';
+
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+
+import { handleError } from '@/utils/error';
 import { getMovieDetailTag } from '@/utils/tmdb';
+
+import prisma from '@/lib/prisma';
+
+import { BASE_URL } from '@/constants/tmdb';
+
+import { MovieDetail } from '@/types/api/tmdb/fetch-movie-detail';
+
+import { COMMON_QUERY_PARAMS } from './constants';
 
 export const fetchMovieDetail = async (id: number) => {
   const session = await getServerSession(authOptions);
