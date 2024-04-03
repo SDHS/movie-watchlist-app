@@ -24,8 +24,10 @@ export default function SearchInput({
 
     if (search) {
       params.set(queryKey, search);
+      params.set('page', '1');
     } else {
       params.delete(queryKey);
+      params.delete('page');
     }
 
     router.replace(`${pathname}?${params.toString()}`);
@@ -39,6 +41,7 @@ export default function SearchInput({
       onClear={() => handleSearch('')}
       startContent={<SearchIcon />}
       variant="bordered"
+      autoFocus
       className="rounded-large bg-default-50"
     />
   );

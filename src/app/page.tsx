@@ -51,7 +51,7 @@ export default async function MovieSearch({ searchParams }: Props) {
   return (
     <main>
       <div className="m-auto mb-unit-xl w-3/4">
-        <SearchInput />
+        <SearchInput key={query} />
       </div>
       <h1 className="mb-unit-xl text-3xl">
         {shouldDisplayPopularMovies
@@ -71,6 +71,7 @@ export default async function MovieSearch({ searchParams }: Props) {
       </MovieGrid>
       <div className="mt-unit-md">
         <Pagination
+          key={page}
           total={Math.min(response?.total_pages, MAX_PAGE_ALLOWED)}
           initialPage={page}
         />
