@@ -1,6 +1,9 @@
-## How to run this project
+# Demo
+![Demo GIF](docs/images/demo.gif)
 
-### Setting Up .env.local
+# How to run this project
+
+## Setting Up .env.local
 
 First, we'll need to setup a `.env.local` file in the root directory of the project. We need to populate it with the following content:
 
@@ -36,7 +39,7 @@ First two lines are self-explanatory. In order to get `GITHUB_ID` and `GITHUB_SE
 
 You should now have all of the environment variables populated in .env.local
 
-### Setting Up Prisma
+## Setting Up Prisma
 Run the following command in the terminal (while being in the root directory):
 ```
 npx prisma migrate dev --name init
