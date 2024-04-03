@@ -1,9 +1,8 @@
 import { getServerSession } from 'next-auth';
 
 import { authOptions } from '@/utils/authOptions';
+import prisma from '@/utils/prisma';
 import { getMovieDetailTag } from '@/utils/tmdb';
-
-import prisma from '@/lib/prisma';
 
 import { BASE_URL } from '@/constants/tmdb';
 

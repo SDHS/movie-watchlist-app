@@ -64,3 +64,30 @@ and then
 npm run start
 ```
 to create and run your build.
+
+# Project structure
+In the root directory, one relevant folder is that of `prisma/`. It houses the schema of our app. Rest of the files are mostly config files. The actual code resides within `src/` directory:
+1. `api`: Stores API calls made in the app.
+2. `app`: NextJS app directory that serves as the router of our app.
+3. `constants`: For constants.
+4. `fonts`: Stores fonts. `Inter` is used in the app.
+5. `types`: Stores TypeScript types to be used throughout the app.
+6. `ui`: Stores common UI components.
+7. `utils`: Stores utility functions for code sharing.
+
+
+# Authentication
+Authentication is done using `NextAuth` and its `GitHub` provider. The boilerplate schema for persisting users in the database is taken from Prisma's own NextJS [recipe](https://github.com/prisma/prisma-examples/tree/latest/typescript/rest-nextjs-api-routes-auth), and modified for use with the app router.
+Storing credentials within our own database is avoided as NextAuth [discourages](https://next-auth.js.org/providers/credentials) this method of authentication. Therefore, GitHub Provider is used for authorizing users.
+
+# Prisma
+Apart from the authentication models provided by Prisma, we have a `WatchList` model that relates a `User` model with a `Movie` model.
+
+# Server Components vs Client Components
+Server components are preferred whereever possible, and client components are reserved only for components requiring interactivity, like `<SearchBox />` and `<Button />`.
+
+# Route Handlers
+API Route Handlers are defined in `/app/api/*` for interaction with our SQLite database. TMDB's endpoints are called directly from within server components instead of hitting the `/api/*` routes to explore both patterns.
+
+# Styling
+Styling is done through TailwindCSS. Base components and theme are from NextUI.
