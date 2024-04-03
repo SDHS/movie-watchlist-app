@@ -18,3 +18,19 @@ export const addMovieToWatchlist = async (
     handleError(error);
   }
 };
+
+export const removeMovieFromWatchlist = async (movieId: number) => {
+  try {
+    const response = await fetch(`/api/watchlist/${movieId}`, {
+      method: 'DELETE',
+      body: JSON.stringify({ movieId }),
+    });
+    const json = await response.json();
+    if (!response.ok) {
+      throw json;
+    }
+    return json;
+  } catch (error) {
+    handleError(error);
+  }
+};

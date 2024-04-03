@@ -30,7 +30,7 @@ export async function DELETE(request: NextRequest) {
       },
     });
 
-    Response.json(
+    return Response.json(
       {
         data: {
           message: 'Watchlist item successfully deleted',
@@ -42,7 +42,7 @@ export async function DELETE(request: NextRequest) {
       },
     );
   } catch (error) {
-    Response.json(
+    return Response.json(
       { error: { message: 'Error removing from watchlist' } },
       { status: 500 },
     );

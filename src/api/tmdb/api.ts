@@ -1,11 +1,8 @@
 import { BASE_URL } from '@/constants/tmdb';
 import { FetchListResponse } from '@/types/api/tmdb/fetch-list';
-import { MovieDetail } from '@/types/api/tmdb/fetch-movie-detail';
 import { handleError } from '@/utils/error';
 
-const COMMON_QUERY_PARAMS = {
-  api_key: process.env.TMDB_API_KEY,
-};
+import { COMMON_QUERY_PARAMS } from './constants';
 
 export const searchMovies = async (params: { query: string; page: string }) => {
   const queryParams = new URLSearchParams({
@@ -48,30 +45,6 @@ export const fetchPopularMovies = async (params: { page: string }) => {
       },
     );
     const json: FetchListResponse = await response.json();
-    if (!response.ok) {
-      throw json;
-    }
-    return json;
-  } catch (error) {
-    handleError(error);
-  }
-};
-
-export const fetchMovieDetail = async (id: number) => {
-  const queryParams = new URLSearchParams({
-    ...COMMON_QUERY_PARAMS,
-    append_to_response: 'credits',
-  });
-  const stringifiedParams = queryParams.toString();
-
-  try {
-    const response: Response = await fetch(
-      `${BASE_URL}/movie/${id}?${stringifiedParams}`,
-      {
-        method: 'GET',
-      },
-    );
-    const json: MovieDetail = await response.json();
     if (!response.ok) {
       throw json;
     }

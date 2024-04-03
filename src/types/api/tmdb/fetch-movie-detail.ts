@@ -1,4 +1,8 @@
-export type MovieDetail = {
+export type CustomProperties = {
+  in_watchlist: boolean;
+};
+
+export type MovieDetail = CustomProperties & {
   adult: boolean;
   backdrop_path: string;
   belongs_to_collection: unknown | null;

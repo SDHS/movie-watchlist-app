@@ -1,4 +1,4 @@
-import { fetchMovieDetail } from '@/api/tmdb/api';
+import { fetchMovieDetail } from '@/api/tmdb/api-server';
 
 import { Image } from '@nextui-org/image';
 
@@ -30,6 +30,7 @@ export default async function MovieDetail({
   const addToWatchlistButtonJsx = (
     <AddToWatchlistButton
       isDisabled={session === null}
+      inWatchlist={movie.in_watchlist}
       watchlistBody={{
         posterPath: movie.poster_path,
         title: movie.title,
