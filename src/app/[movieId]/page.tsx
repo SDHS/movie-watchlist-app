@@ -93,7 +93,6 @@ export default async function MovieDetail({
       </div>
       <div className="mt-unit-xl flex w-full flex-col gap-unit-lg md:flex-row">
         <Image
-          removeWrapper
           src={getImage(movie.poster_path)}
           alt={`${movie.title} poster`}
           className="w-full object-cover md:w-[50%] md:min-w-[300px]"

@@ -3,8 +3,6 @@ import MovieGrid from '@/ui/movie-grid';
 
 import { fetchWatchlist } from '@/api/watchlist/api-server';
 
-import { getImage } from '@/utils/tmdb';
-
 export default async function Watchlist() {
   const watchlist = await fetchWatchlist();
 
@@ -19,7 +17,7 @@ export default async function Watchlist() {
         {watchlist.map(movie => (
           <MovieCard
             href={`/${movie.movieId}`}
-            imageSrc={getImage(movie.posterPath)}
+            posterPath={movie.posterPath}
             name={movie.title}
             releaseDate={new Date(movie.releaseYear)}
             key={movie.id}

@@ -1,30 +1,29 @@
-import NextImage from 'next/image';
 import Link from 'next/link';
 
 import { Card, CardFooter } from '@nextui-org/card';
 import { Image } from '@nextui-org/image';
 import { isValid } from 'date-fns/isValid';
 
+import { getImage } from '@/utils/tmdb';
+
 import type { Props } from './types';
 
-const DEFAULT_IMAGE = '/image_not_found.jpg';
-
 export default function MovieCard({
-  imageSrc,
+  posterPath,
   name,
   releaseDate,
   href,
 }: Props) {
+  const imagePath = getImage(posterPath);
+
   return (
-    <Card className="flex-col items-center justify-between p-2">
+    <Card className="flex-col items-center justify-between p-2 bg-secondary-50">
       <Link href={href}>
         <Image
-          as={NextImage}
-          width={310}
-          height={200}
-          src={imageSrc ?? DEFAULT_IMAGE}
+          key={imagePath}
+          src={imagePath}
           alt={`Movie: ${name} poster`}
-          className="z-0 object-cover"
+          className="z-0 object-cover w-full h-full md:h-[400px]"
         />
       </Link>
       <CardFooter className="mt-7 flex-col items-start">
