@@ -13,7 +13,7 @@ import { type FetchListResponse } from '@/types/api/tmdb/fetch-list';
 
 type Props = {
   searchParams: {
-    search?: string;
+    query?: string;
     page?: string;
   };
 };

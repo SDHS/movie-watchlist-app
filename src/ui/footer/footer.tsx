@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import { Image } from '@nextui-org/image';
 
 export default function Footer() {
   return (
@@ -13,8 +13,7 @@ export default function Footer() {
           <Image
             src="./tmdb_logo.svg"
             alt="TMDB logo"
-            height={80}
-            width={120}
+            className="h-[40px] w-[120px]"
           />
         </a>
       </div>
