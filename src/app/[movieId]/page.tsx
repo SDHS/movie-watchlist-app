@@ -4,7 +4,8 @@ import { Image } from '@nextui-org/image';
 
 import { CircularProgress } from '@nextui-org/progress';
 import { Card } from '@nextui-org/card';
-import { Avatar } from '@nextui-org/react';
+import { Avatar } from '@nextui-org/avatar';
+import { Tooltip } from '@nextui-org/tooltip';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '../api/auth/[...nextauth]/route';
 import AddToWatchlistButton from './add-to-watchlist-button';
@@ -25,19 +26,31 @@ export default async function MovieDetail({
   if (!movie) {
     return <div>An error occurred, please refresh and try again</div>;
   }
+
+  const addToWatchlistButtonJsx = (
+    <AddToWatchlistButton
+      isDisabled={session === null}
+      watchlistBody={{
+        posterPath: movie.poster_path,
+        title: movie.title,
+        tmdbId: movie.id,
+        releaseDate: movie.release_date ?? undefined,
+        userId: session?.user.id,
+      }}
+    />
+  );
+
   return (
     <main>
       <div className="flex items-center justify-between">
         <h1 className="text-4xl font-bold">{movie.title}</h1>
-        <AddToWatchlistButton
-          watchlistBody={{
-            posterPath: movie.poster_path,
-            title: movie.title,
-            tmdbId: movie.id,
-            releaseDate: movie.release_date ?? undefined,
-            userId: session?.user.id,
-          }}
-        />
+        {!session ? (
+          <Tooltip content="Please sign in to add to watchlist">
+            <div>{addToWatchlistButtonJsx}</div>
+          </Tooltip>
+        ) : (
+          addToWatchlistButtonJsx
+        )}
       </div>
       <div className="mt-unit-xl flex w-full flex-col gap-unit-lg md:flex-row">
         <Image

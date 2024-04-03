@@ -35,4 +35,8 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-dev.db
+#Sqlite
+
+*.db
+*.db-journal
+migrations

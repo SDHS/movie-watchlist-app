@@ -2,14 +2,17 @@
 
 import { addMovieToWatchlist } from '@/api/watchlist/api';
 import { CreateWatchlistRequestBody } from '@/types/api/watchlist/fetch-watchlist';
-import { Button } from '@nextui-org/button';
+import { Button, ButtonProps } from '@nextui-org/button';
 import { useState } from 'react';
+
+type Props = ButtonProps & {
+  watchlistBody: CreateWatchlistRequestBody['data'];
+};
 
 export default function AddToWatchlistButton({
   watchlistBody,
-}: {
-  watchlistBody: CreateWatchlistRequestBody['data'];
-}) {
+  ...rest
+}: Props) {
   const [isUpdating, setIsUpdating] = useState(false);
 
   return (
@@ -21,6 +24,7 @@ export default function AddToWatchlistButton({
         await addMovieToWatchlist(watchlistBody);
         setIsUpdating(false);
       }}
+      {...rest}
     >
       Add to watchlist
     </Button>
