@@ -105,7 +105,7 @@ export default async function MovieDetail({
         </div>
       </div>
       <h2 className="mt-unit-lg text-xl font-bold">Cast:</h2>
-      <div className="flex w-full max-w-[100%] items-center gap-unit-md overflow-scroll p-unit-md">
+      <div className="flex max-w-[100%] items-center gap-unit-md overflow-scroll p-unit-md">
         {movie.credits.cast.map(({ id, name, profile_path, character }) => (
           <CastCard
             key={id}
