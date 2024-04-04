@@ -5,7 +5,11 @@ import { FetchListResponse } from '@/types/api/tmdb/fetch-list';
 
 import { COMMON_QUERY_PARAMS } from './constants';
 
-export const searchMovies = async (params: { query: string; page: string }) => {
+export const searchMovies = async (params: {
+  query?: string;
+  page: string;
+  year?: string;
+}) => {
   const queryParams = new URLSearchParams({
     ...params,
     ...COMMON_QUERY_PARAMS,

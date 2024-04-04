@@ -8,7 +8,7 @@ import type { Props } from './types';
 export default function CastCard({ profilePath, name, character }: Props) {
   return (
     <Card className="flex min-w-fit items-center p-unit-md">
-      <Avatar src={getImage(profilePath)} size="lg" />
+      <Avatar src={getImage(profilePath)} size="lg" aria-label={name} />
       <p className="font-bold">{name}</p>
       <p>{character}</p>
     </Card>

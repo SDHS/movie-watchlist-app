@@ -10,11 +10,11 @@ import { fetchMovieDetail } from '@/api/tmdb/api-server';
 import { authOptions } from '@/utils/authOptions';
 import { getImage } from '@/utils/tmdb';
 
-import AddToWatchlistButton from './add-to-watchlist-button';
-import MovieCast from './movie-cast';
+import AddToWatchlistButton from './components/add-to-watchlist-button';
+import MovieCast from './components/movie-cast';
 import MovieDetailItem, {
   Props as MovieDetailItemProps,
-} from './movie-detail-item';
+} from './components/movie-detail-item';
 
 export default async function MovieDetail({
   params,
@@ -74,6 +74,7 @@ export default async function MovieDetail({
             value={((movie?.vote_average ?? 0) / 10) * 100}
             color="primary"
             showValueLabel
+            aria-label="user ratings"
           />
           {movie?.vote_count ? (
             <p className="text-small">Based on {movie.vote_count} votes</p>

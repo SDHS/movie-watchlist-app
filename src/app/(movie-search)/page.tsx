@@ -1,9 +1,6 @@
-import { z } from 'zod';
-
 import MovieCard from '@/ui/movie-card';
 import MovieGrid from '@/ui/movie-grid';
 import Pagination from '@/ui/pagination';
-import SearchInput from '@/ui/search-input';
 
 import { fetchPopularMovies, searchMovies } from '@/api/tmdb/api';
 
@@ -11,35 +8,32 @@ import { MAX_PAGE_ALLOWED } from '@/constants/tmdb';
 
 import { type FetchListResponse } from '@/types/api/tmdb/fetch-list';
 
+import MovieSearchInput from './components/movie-search-input';
+import YearSelect from './components/year-select';
+import { mapApiToProps, queryParamsSchema } from './utils';
+
 type Props = {
   searchParams: {
     query?: string;
     page?: string;
+    primary_release_year?: string;
   };
 };
 
-const queryParamsSchema = z.object({
-  query: z.string().catch(''),
-  page: z.coerce.number().lte(MAX_PAGE_ALLOWED).catch(1),
-});
-
-const mapApiToProps = (results: FetchListResponse['results']) =>
-  results.map(movie => ({
-    id: movie.id,
-    href: `/${movie.id}`,
-    imageSrc: movie.poster_path,
-    name: movie.original_title,
-    releaseDate: new Date(movie.release_date),
-  })) ?? [];
-
 export default async function MovieSearch({ searchParams }: Props) {
-  const { page, query } = queryParamsSchema.parse(searchParams);
-  const shouldDisplayPopularMovies = Boolean(!query.length);
+  const queryParams = queryParamsSchema.parse(searchParams);
+  const shouldDisplayPopularMovies = Boolean(!queryParams.query.length);
   const response: FetchListResponse = (shouldDisplayPopularMovies
     ? await fetchPopularMovies({
-        page: String(page),
+        page: String(queryParams.page),
       })
-    : await searchMovies({ query, page: String(page) })) ?? {
+    : await searchMovies({
+        query: queryParams.query,
+        page: String(queryParams.page),
+        ...(queryParams.primary_release_year !== -1 && {
+          primary_release_year: String(queryParams.primary_release_year),
+        }),
+      })) ?? {
     results: [],
     total_pages: 0,
     page: 0,
@@ -50,13 +44,14 @@ export default async function MovieSearch({ searchParams }: Props) {
 
   return (
     <main>
-      <div className="m-auto mb-unit-xl w-3/4">
-        <SearchInput key={query} />
+      <div className="m-auto mb-unit-xl w-full flex justify-center gap-unit-xl">
+        <MovieSearchInput key={queryParams.query} />
+        <YearSelect key={queryParams.primary_release_year} />
       </div>
       <h1 className="mb-unit-xl text-3xl">
         {shouldDisplayPopularMovies
           ? 'Popular movies'
-          : `Searching for ${query}...`}
+          : `Searching for ${queryParams.query}...`}
       </h1>
       <MovieGrid>
         {movies.map(({ href, id, imageSrc, name, releaseDate }) => (
@@ -71,9 +66,9 @@ export default async function MovieSearch({ searchParams }: Props) {
       </MovieGrid>
       <div className="mt-unit-md">
         <Pagination
-          key={page}
+          key={queryParams.page}
           total={Math.min(response?.total_pages, MAX_PAGE_ALLOWED)}
-          initialPage={page}
+          initialPage={queryParams.page}
         />
       </div>
     </main>

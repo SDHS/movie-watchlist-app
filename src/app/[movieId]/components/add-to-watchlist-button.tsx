@@ -14,7 +14,7 @@ import { getMovieDetailTag } from '@/utils/tmdb';
 
 import { CreateWatchlistRequestBody } from '@/types/api/watchlist/fetch-watchlist';
 
-import { customRevalidateTag } from './revalidate-tag';
+import { customRevalidateTag } from '../revalidate-tag';
 
 type Props = ButtonProps & {
   watchlistBody: CreateWatchlistRequestBody['data'];

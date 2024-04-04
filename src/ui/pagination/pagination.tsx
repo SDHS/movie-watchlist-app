@@ -6,7 +6,7 @@ import { Pagination as NextUIPagination } from '@nextui-org/pagination';
 
 import { type Props } from './types';
 
-export default function Pagination({ total, initialPage }: Props) {
+export default function Pagination({ total, initialPage, ...rest }: Props) {
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
@@ -21,6 +21,7 @@ export default function Pagination({ total, initialPage }: Props) {
       }}
       initialPage={initialPage}
       showControls
+      {...rest}
     />
   );
 }

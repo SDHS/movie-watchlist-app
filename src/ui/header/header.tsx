@@ -44,6 +44,7 @@ export default async function Header() {
             <Avatar
               size="md"
               src={session?.user.image ?? './image_not_found.jpg'}
+              aria-label={session?.user.name ?? ''}
             />
           ) : null}
         </NavbarItem>
